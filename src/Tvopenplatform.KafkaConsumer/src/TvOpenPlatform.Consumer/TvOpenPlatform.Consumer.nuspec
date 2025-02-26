@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>TvOpenPlatform.KafkaConsumer</id>
+    <version>$version$</version>
+    <title>TvOpenPlatform.KafkaConsumer</title>
+    <authors>TvOpenPlatform</authors>
+    <owners>TvOpenPlatform</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TvOpenPlatform.KafkaConsumer</description>
+    <releaseNotes>
+    </releaseNotes>
+    <copyright>Copyright 2020</copyright>
+    <tags>TvOpenPlatform Core</tags>
+    <dependencies>
+			<dependency id="Confluent.SchemaRegistry.Serdes.Json" version="1.4.4" />
+			<dependency id="Microsoft.Extensions.Configuration" version="3.1.10" />
+			<dependency id="Microsoft.Extensions.Configuration.Abstractions" version="3.1.10" />
+			<dependency id="Microsoft.Extensions.DependencyInjection" version="3.1.10" />
+			<dependency id="Microsoft.Extensions.Logging.Abstractions" version="3.1.10" />
+			<dependency id="Microsoft.Extensions.Options" version="3.1.10" />
+			<dependency id="Microsoft.Extensions.Options.ConfigurationExtensions" version="3.1.10" />
+			<dependency id="Newtonsoft.Json" version="12.0.3" />
+			<dependency id="Newtonsoft.Json.Schema" version="3.0.14" />
+			<dependency id="TvOpenPlatform.Logger.Microsoft" version="3.6.6" />			
+			<dependency id="TvOpenPlatform.Settings.Athena" version="6.2.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\**\TvOpenPlatform.Consumer.dll" target="lib" />
+  </files>
+</package>

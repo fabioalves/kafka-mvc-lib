@@ -1,0 +1,81 @@
+﻿using Confluent.Kafka;
+using Microsoft.Extensions.Logging;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using TvOpenPlatform.Consumer.Routing;
+using TvOpenPlatform.KafkaClient;
+using Xunit;
+
+namespace TvOpenPlatform.Consumer.UnitTests.Consumers.Default
+{
+    public class RunTests
+    {
+        [Fact]
+        public void Should_StartComsumption()
+        {
+            var consumerWrapperMock = new Mock<IKafkaConsumerWrapper<byte[]>>();
+            var routerMock = new Mock<IRouter>();
+            routerMock.SetupGet(x => x.DefaultTopics).Returns(new List<string>() { "topic1" });
+            var loggerMock = new Mock<ILogger<Consumer>>();
+            var topicTypes = new Dictionary<string, Type>();
+            var programConfiguration = new ConsumerAgentConfiguration()
+            {
+                DefaultConsumerEnabled = true
+            };
+            CancellationToken cancellationToken = new CancellationTokenSource().Token;
+            
+            var consumer = new DefaultConsumer("", programConfiguration, consumerWrapperMock.Object, routerMock.Object, loggerMock.Object);
+            consumer.Run(cancellationToken);
+
+            Task.Delay(10).Wait();
+
+            consumerWrapperMock.Verify(x => x.StartConsumption(
+                It.IsAny<List<string>>(),
+                It.IsAny<Action<ConsumeResult<string, byte[]>>> (),
+                It.Is<CancellationToken>(_ => _.GetHashCode() == cancellationToken.GetHashCode()),
+                null),
+                Times.Once);
+        }
+
+        [Fact]
+        public void Should_Not_Call_StartComsumption_When_DefaultTopics_Is_Empty()
+        {
+            var consumerWrapperMock = new Mock<IKafkaConsumerWrapper<byte[]>>();
+            var routerMock = new Mock<IRouter>();
+            routerMock.SetupGet(x => x.DefaultTopics).Returns(new List<string>());
+            var loggerMock = new Mock<ILogger<Consumer>>();
+            var topicTypes = new Dictionary<string, Type>();
+            var programConfiguration = new ConsumerAgentConfiguration()
+            {
+                DefaultConsumerEnabled = true
+            };
+            var consumer = new DefaultConsumer("", programConfiguration, consumerWrapperMock.Object, routerMock.Object, loggerMock.Object);
+            consumer.Run();
+
+            Task.Delay(10).Wait();
+            consumerWrapperMock.Verify(x =>
+            x.StartConsumption(It.IsAny<List<string>>(), It.IsAny<Action<ConsumeResult<string, byte[]>>> (), It.IsAny<CancellationToken>(), It.IsAny<TimeSpan>()), Times.Never);
+        }
+
+        [Fact]
+        public void Should_Not_Call_StartComsumption_When_DefaultConsumerEnabled_Is_False()
+        {
+            var consumerWrapperMock = new Mock<IKafkaConsumerWrapper<byte[]>>();
+            var routerMock = new Mock<IRouter>();
+            var loggerMock = new Mock<ILogger<Consumer>>();
+            var topicTypes = new Dictionary<string, Type>();
+            var programConfiguration = new ConsumerAgentConfiguration()
+            {
+                DefaultConsumerEnabled = false
+            };
+            var consumer = new DefaultConsumer("", programConfiguration, consumerWrapperMock.Object, routerMock.Object, loggerMock.Object);
+            consumer.Run();
+
+            Task.Delay(10).Wait();
+            consumerWrapperMock.Verify(x => x.StartConsumption(It.IsAny<List<string>>(), It.IsAny<Action<ConsumeResult<string, byte[]>>> (), It.IsAny<CancellationToken>(), It.IsAny<TimeSpan>()), Times.Never);
+        }
+    }
+}

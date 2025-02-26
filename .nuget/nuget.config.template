@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="TvOpenPlatform.TestFeed" value="https://uux.pkgs.visualstudio.com/_packaging/TvOpenPlatform.Test/nuget/v3/index.json" />
+    <add key="TvOpenPlatform.MainFeed" value="https://uux.pkgs.visualstudio.com/_packaging/TvOpenPlatform/nuget/v3/index.json" />
+  </packageSources>
+</configuration>

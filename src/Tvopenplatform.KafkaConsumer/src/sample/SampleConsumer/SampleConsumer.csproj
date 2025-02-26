@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.10" />
+    <PackageReference Include="TvOpenPlatform.Configuration.Log" Version="3.2.0" />
+    <PackageReference Include="TvOpenPlatform.Logger.Microsoft" Version="3.6.6" />
+    <PackageReference Include="TvOpenPlatform.Logging" Version="3.2.0" />
+    <PackageReference Include="TvOpenPlatform.HttpClientExtensions" Version="3.2.0" />
+    <PackageReference Include="TvOpenPlatform.TraceIdentifier" Version="3.2.0" />
+    <PackageReference Include="TvOpenPlatform.Settings.Athena" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TvOpenPlatform.Consumer\TvOpenPlatform.Consumer.csproj" />
+    <ProjectReference Include="..\SampleDomain\SampleDomain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
